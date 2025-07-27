@@ -38,11 +38,30 @@ class Keranjang{
     public static function create($data)
     {
         $db = self::connect();
-        $stmt = $db->prepare("INSERT INTO keranjang (bahan_id, porsi) VALUES (:bahan_id, :porsi)");
-        $stmt->execute($data);
-        $data['id'] = $db->lastInsertId();
-        return $data;
+
+        // Cek apakah bahan_id sudah ada di keranjang
+        $stmt = $db->prepare("SELECT * FROM keranjang WHERE bahan_id = :bahan_id");
+        $stmt->execute(['bahan_id' => $data['bahan_id']]);
+        $cekAda = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($cekAda) {
+            // Jika sudah ada, update porsi (tambahkan)
+            $newPorsi = $cekAda['porsi'] + $data['porsi'];
+            $updateStmt = $db->prepare("UPDATE keranjang SET porsi = :porsi WHERE id = :id");
+            $updateStmt->execute([
+                'porsi' => $newPorsi,
+                'id' => $cekAda['id']
+            ]);
+            return self::find($cekAda['id']);
+        } else {
+            // Jika belum ada, insert baru
+            $insertStmt = $db->prepare("INSERT INTO keranjang (bahan_id, porsi) VALUES (:bahan_id, :porsi)");
+            $insertStmt->execute($data);
+            $data['id'] = $db->lastInsertId();
+            return $data;
+        }
     }
+
 
     public static function update($id, $data)
     {
@@ -60,7 +79,7 @@ class Keranjang{
         $stmt->execute(['id' => $id]);
         return $stmt->rowCount() > 0;
     }
-    
+
     public static function hapusSemua()
     {
         $db = self::connect();

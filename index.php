@@ -20,7 +20,7 @@ post("/keranjang/tambah", function(){
         'porsi' => $_POST['porsi']
     ];
     Keranjang::create($data);
-    header("Location: /keranjang");
+    header("Location: /");
     exit();
 });
 
