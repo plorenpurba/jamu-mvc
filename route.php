@@ -3,9 +3,9 @@
 function route($route, $handler){
 	$callback = $handler;
 	if (!is_callable($callback)){
-		if(!strpos($handler, '.php')){
-			$handler .= '.php'; 
-		}
+		if (is_string($handler) && !strpos($handler, '.php')) {
+            $handler .= '.php';
+        }
 	}
 	if ($route == "/404"){
 		include_once __DIR__ . "/$handler";

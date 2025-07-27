@@ -18,6 +18,7 @@
                     <th>Harga</th>
                     <th>Porsi</th>
                     <th>Total Harga</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +28,18 @@
                         <td>Rp <?php echo number_format($item['harga'], 0, ',', '.'); ?></td>
                         <td><?php echo htmlspecialchars($item['porsi']); ?></td>
                         <td>Rp <?php echo number_format($item['total_harga'], 0, ',', '.'); ?></td>
+                        <td>
+                            <form action="/keranjang/update/<?php echo $item['keranjang_id']; ?>" method="POST" style="display:inline;">
+                                <input type="hidden" name="action" value="minus">
+                                <button type="submit">-</button>
+                            </form>
+                            <?php echo htmlspecialchars($item['porsi']); ?>
+                            <form action="/keranjang/update/<?php echo $item['keranjang_id']; ?>" method="POST" style="display:inline;">
+                                <input type="hidden" name="action" value="plus">
+                                <button type="submit">+</button>
+                            </form>
+                        </td>
+
                     </tr>
                 <?php endforeach; ?>
             </tbody>
