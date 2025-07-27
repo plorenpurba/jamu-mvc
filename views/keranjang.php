@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Keranjang</title>
 </head>
 <body>
+    <h1>Keranjangmu</h1>
     <?php if (empty($keranjang)): ?>
         <h2>Keranjang Kosong</h2>
     <?php else: ?>
@@ -37,5 +38,10 @@
             ?>
         </h3>   
         <?php endif; ?>
+
+        <form action="/keranjang/bayar" method="POST">
+            <button type="submit">Bayar</button>
+        </form>
+
 </body>
 </html>

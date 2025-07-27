@@ -24,3 +24,8 @@ post("/keranjang/tambah", function(){
     exit();
 });
 
+post("/keranjang/bayar", function(){
+    Keranjang::hapusSemua();
+    header("Location: /keranjang");
+    exit();
+});
