@@ -8,6 +8,7 @@ class KeranjangController {
     
     public function index() {
         $keranjang = Keranjang::get();
+        $jumlahKeranjang = count($keranjang);
         include __DIR__ . '/../views/keranjang.php';
     }
 
@@ -17,7 +18,7 @@ class KeranjangController {
             'porsi' => $_POST['porsi']
         ];
         Keranjang::create($data);
-        header("Location: /keranjang");
+        header("Location: /");
         exit();
     }
 

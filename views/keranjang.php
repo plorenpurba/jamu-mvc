@@ -51,10 +51,12 @@
             ?>
         </h3>   
         <?php endif; ?>
-
-        <form action="/keranjang/bayar" method="POST">
-            <button type="submit">Bayar</button>
-        </form>
-
+        
+        <?php if ($jumlahKeranjang > 0): ?>
+            <form action="/keranjang/bayar" method="POST">
+                <button type="submit">Bayar</button>
+            </form>
+        <?php endif; ?>
+        <a href="/">Pilih Bahan</a>
 </body>
 </html>
